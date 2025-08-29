@@ -34,11 +34,7 @@ Use the left and right arrow buttons to go through the path step by step to see 
 
 Of course, sometimes you might think it's not going by the shortest path possible, but that's because of the various constraints and safeguards in the algorithm, which can all be tweaked in the code.
 
-The algorithm API server should be running at a specific address, which you will need to change in `BaseAPI.js`. To see a working simulator with an online API (online for now at least), visit [here](https://mdp.pyesonekyaw.com/).
-
-# Disclaimer
-
-I am not responsible for any errors, mishaps, or damages that may occur from using this code. Use at your own risk. This code is provided as-is, with no warranty of any kind.
+The algorithm API server should be running at a specific address, which you will need to change in `BaseAPI.js`.
 
 # Acknowledgements
 
