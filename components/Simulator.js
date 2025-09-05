@@ -411,7 +411,7 @@ export default function Simulator() {
         <div className="mt-6 grid grid-cols-2 gap-2">
           {obstacles.map((ob) => (
             <div key={ob.id}
-                 className="badge flex items-center gap-2 font-serif text-black bg-orange-300 rounded-x">
+                 className="badge flex items-center text-2x1 gap-2 font-serif text-black bg-orange-300 rounded-x">
               <span>X: {ob.x}</span><span>Y: {ob.y}</span><span>D: {DirectionToString[ob.d]}</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                    className="inline-block w-4 h-4 stroke-current cursor-pointer"
