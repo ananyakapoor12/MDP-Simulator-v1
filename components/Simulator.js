@@ -404,8 +404,8 @@ export default function Simulator() {
       {/* LEFT PANEL */}
       <aside className="flex flex-col items-start">
         <h2 className="text-2xl text-black font-semibold font-serif">Algorithm Simulator</h2>
-        <p className="mt-3 font-serif">Click anywhere on the grid to place Obstacles.</p>
-        <p className="font-serif">Tap the obstacle to rotate (the 4th tap removes it)</p>
+        <p className="mt-3 font-serif text-black">Click anywhere on the grid to place Obstacles.</p>
+        <p className="font-serif text-black">Tap the obstacle to rotate (the 4th tap removes it)</p>
 
         {/* badges, XY, etc. */}
         <div className="mt-6 grid grid-cols-2 gap-2">
