@@ -397,194 +397,60 @@ export default function Simulator() {
   }, [page, path]);
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="flex flex-col items-center text-center bg-sky-200 rounded-xl shadow-xl mb-8">
-        <h2 className="card-title text-black pt-4">Algorithm Simulator</h2>
-      </div>
+  <div className="min-h-screen">
+    <div className="mx-auto max-w-7xl px-4 py-8
+                    grid grid-cols-1 lg:grid-cols-[minmax(280px,360px)_1fr] gap-10">
 
-      <div className="flex flex-col items-center text-center bg-sky-200 rounded-xl shadow-xl">
-        <div className="card-body items-center text-center p-4">
-          <h2 className="card-title text-black">Robot Position</h2>
-          <div className="form-control">
-            <label className="input-group input-group-horizontal">
-              <span className="bg-primary p-2">X</span>
-              <input
-                onChange={onChangeRobotX}
-                type="number"
-                placeholder="1"
-                min="1"
-                max="18"
-                className="input input-bordered  text-blue-900 w-20"
-              />
-              <span className="bg-primary p-2">Y</span>
-              <input
-                onChange={onChangeRobotY}
-                type="number"
-                placeholder="1"
-                min="1"
-                max="18"
-                className="input input-bordered  text-blue-900 w-20"
-              />
-              <span className="bg-primary p-2">D</span>
-              <select
-                onChange={onRobotDirectionInputChange}
-                value={robotDir}
-                className="select text-blue-900 py-2 pl-2 pr-6"
-              >
-                <option value={ObDirection.NORTH}>Up</option>
-                <option value={ObDirection.SOUTH}>Down</option>
-                <option value={ObDirection.WEST}>Left</option>
-                <option value={ObDirection.EAST}>Right</option>
-              </select>
-              <button className="btn btn-success p-2" onClick={onClickRobot}>
-                Set
-              </button>
-            </label>
-          </div>
-        </div>
-      </div>
+      {/* LEFT PANEL */}
+      <aside className="flex flex-col items-start">
+        <h2 className="text-2xl text-black font-semibold font-serif">Algorithm Simulator</h2>
+        <p className="mt-3 font-serif">Click anywhere on the grid to place Obstacles.</p>
+        <p className="font-serif">Tap the obstacle to rotate (the 4th tap removes it)</p>
 
-      <div className="flex flex-col items-center text-center bg-sky-200 p-4 rounded-xl shadow-xl m-8">
-        <h2 className="card-title text-black pb-2">Add Obstacles</h2>
-        <div className="form-control">
-          <label className="input-group input-group-horizontal">
-            <span className="bg-primary p-2">X</span>
-            <input
-              onChange={onChangeX}
-              type="number"
-              placeholder="1"
-              min="0"
-              max="19"
-              className="input input-bordered  text-blue-900 w-20"
-            />
-            <span className="bg-primary p-2">Y</span>
-            <input
-              onChange={onChangeY}
-              type="number"
-              placeholder="1"
-              min="0"
-              max="19"
-              className="input input-bordered  text-blue-900 w-20"
-            />
-            <span className="bg-primary p-2">D</span>
-            <select
-              onChange={onDirectionInputChange}
-              value={directionInput}
-              className="select text-blue-900 py-2 pl-2 pr-6"
-            >
-              <option value={ObDirection.NORTH}>Up</option>
-              <option value={ObDirection.SOUTH}>Down</option>
-              <option value={ObDirection.WEST}>Left</option>
-              <option value={ObDirection.EAST}>Right</option>
-              <option value={ObDirection.SKIP}>None</option>
-            </select>
-            <button className="btn btn-success p-2" onClick={onClickObstacle}>
-              Add
-            </button>
-          </label>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-4 gap-x-2 gap-y-4 items-center">
-        {obstacles.map((ob) => {
-          return (
-            <div
-              key={ob}
-              className="badge flex flex-row text-black bg-sky-100 rounded-xl text-xs md:text-sm h-max border-cyan-500"
-            >
-              <div flex flex-col>
-                <div>X: {ob.x}</div>
-                <div>Y: {ob.y}</div>
-                <div>D: {DirectionToString[ob.d]}</div>
-              </div>
-              <div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  className="inline-block w-4 h-4 stroke-current"
-                  onClick={() => onRemoveObstacle(ob)}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  ></path>
-                </svg>
-              </div>
+        {/* badges, XY, etc. */}
+        <div className="mt-6 grid grid-cols-2 gap-2">
+          {obstacles.map((ob) => (
+            <div key={ob.id}
+                 className="badge flex items-center gap-2 font-serif text-black bg-orange-300 rounded-x">
+              <span>X: {ob.x}</span><span>Y: {ob.y}</span><span>D: {DirectionToString[ob.d]}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                   className="inline-block w-4 h-4 stroke-current cursor-pointer"
+                   onClick={() => onRemoveObstacle(ob)}>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                      d="M6 18L18 6M6 6l12 12"/>
+              </svg>
             </div>
-          );
-        })}
-      </div>
-      <div className="btn-group btn-group-horizontal py-4">
-        <button className="btn btn-error" onClick={onResetAll}>
-          Reset All
-        </button>
-        <button className="btn btn-warning" onClick={onReset}>
-          Reset Robot
-        </button>
-        <button className="btn btn-success" onClick={compute}>
-          Submit
-        </button>
-      </div>
-
-      {path.length > 0 && (
-        <div className="flex flex-row items-center text-center bg-sky-200 p-4 rounded-xl shadow-xl my-8">
-          <button
-            className="btn btn-circle pt-2 pl-1"
-            disabled={page === 0}
-            onClick={() => {
-              setPage(page - 1);
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
-              />
-            </svg>
-          </button>
-
-          <span className="mx-5 text-black">
-            Step: {page + 1} / {path.length}
-          </span>
-          <span className="mx-5 text-black">{commands[page]}</span>
-          <button
-            className="btn btn-circle pt-2 pl-2"
-            disabled={page === path.length - 1}
-            onClick={() => {
-              setPage(page + 1);
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
-              />
-            </svg>
-          </button>
+          ))}
         </div>
-      )}
-      <table className="border-collapse border-none border-black ">
-        <tbody>{renderGrid()}</tbody>
-      </table>
+
+        {/* BUTTONS — pinned left, toward bottom on large screens */}
+        <div className="flex gap-3 justify-start self-start mt-6 lg:mt-auto">
+          <button className="btn border-0 bg-orange-600 text-white font-serif" onClick={onResetAll}>Reset All</button>
+          <button className="btn border-0 bg-orange-600 text-white font-serif" onClick={onReset}>Reset Robot</button>
+          <button className="btn border-0 bg-orange-600 text-white font-serif" onClick={compute}>Submit</button>
+        </div>
+      </aside>
+
+      {/* RIGHT PANEL (Grid + stepper) */}
+      <main className="flex flex-col items-end">
+        {path.length > 0 && (
+          <div className="flex items-center gap-4 mb-4 bg-sky-200 p-3 rounded-xl shadow">
+            <button className="btn btn-circle" disabled={page===0} onClick={()=>setPage(page-1)}>‹</button>
+            <span className="text-black">Step: {page+1} / {path.length}</span>
+            <span className="text-black">{commands[page]}</span>
+            <button className="btn btn-circle" disabled={page===path.length-1} onClick={()=>setPage(page+1)}>›</button>
+          </div>
+        )}
+
+        {/* Make the grid use all remaining width */}
+        <div className="w-full max-w-full overflow-auto">
+          <table className="border-collapse">
+            <tbody>{renderGrid()}</tbody>
+          </table>
+        </div>
+      </main>
     </div>
-  );
+  </div>
+);
+
 }
