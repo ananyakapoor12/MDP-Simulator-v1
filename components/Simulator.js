@@ -404,8 +404,8 @@ export default function Simulator() {
       {/* LEFT PANEL */}
       <aside className="flex flex-col items-start">
         <h2 className="text-2xl text-black font-semibold font-serif">Algorithm Simulator</h2>
-        <p className="mt-3 font-serif">Click anywhere on the grid to place Obstacles.</p>
-        <p className="font-serif">Tap the obstacle to rotate (the 4th tap removes it)</p>
+        <p className="mt-3 text-black font-serif">Click anywhere on the grid to place Obstacles.</p>
+        <p className="font-serif text-black">Tap the obstacle to rotate (the 4th tap removes it)</p>
 
         {/* badges, XY, etc. */}
         <div className="mt-6 grid grid-cols-2 gap-2">
@@ -434,13 +434,29 @@ export default function Simulator() {
       {/* RIGHT PANEL (Grid + stepper) */}
       <main className="flex flex-col items-end">
         {path.length > 0 && (
-          <div className="flex items-center gap-4 mb-4 bg-sky-200 p-3 rounded-xl shadow">
-            <button className="btn btn-circle" disabled={page===0} onClick={()=>setPage(page-1)}>‹</button>
-            <span className="text-black">Step: {page+1} / {path.length}</span>
-            <span className="text-black">{commands[page]}</span>
-            <button className="btn btn-circle" disabled={page===path.length-1} onClick={()=>setPage(page+1)}>›</button>
-          </div>
-        )}
+          <div className="flex items-center gap-4 mb-4 bg-orange-400 p-3 rounded-xl shadow">
+            <button
+              className="btn btn-circle bg-orange-600 text-white border-0 w-12 h-12 text-3xl leading-none shadow-none focus:outline-none focus:ring-0 focus:ring-offset-0 disabled:opacity-50"
+              disabled={page === 0}
+              onClick={() => setPage(page - 1)}
+              aria-label="Previous step"
+            >
+              ‹
+            </button>
+
+            <span className="text-white font-serif">Step: {page + 1} / {path.length}</span>
+            <span className="text-white font-serif">{commands[page]}</span>
+
+            <button
+              className="btn btn-circle bg-orange-600 text-white border-0 w-12 h-12 text-3xl leading-none shadow-none focus:outline-none focus:ring-0 focus:ring-offset-0 disabled:opacity-50"
+              disabled={page === path.length - 1}
+              onClick={() => setPage(page + 1)}
+              aria-label="Next step"
+            >
+              ›
+            </button>
+    </div>
+  )}
 
         {/* Make the grid use all remaining width */}
         <div className="w-full max-w-full overflow-auto">
